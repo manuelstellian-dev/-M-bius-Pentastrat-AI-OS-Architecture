@@ -1,0 +1,8 @@
+{"type":"prompt","payload":"edge-case-1","description":"Test edge case handling"}
+{"type":"payload","payload":"overlong-seq","description":"Test with excessively long sequence"}
+{"type":"image","payload":"noise-pattern","description":"Test with noisy input"}
+{"type":"injection","payload":"<script>alert('xss')</script>","description":"Test XSS injection"}
+{"type":"sql","payload":"'; DROP TABLE users--","description":"Test SQL injection"}
+{"type":"path_traversal","payload":"../../etc/passwd","description":"Test path traversal"}
+{"type":"overflow","payload":"A"*10000,"description":"Test buffer overflow"}
+{"type":"unicode","payload":"\u0000\uffff","description":"Test Unicode handling"}

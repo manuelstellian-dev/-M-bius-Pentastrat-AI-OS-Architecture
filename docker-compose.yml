@@ -1,0 +1,219 @@
+version: "3.9"
+
+services:
+  # Λ‑Arbiter Core - Meta-decisional cortex
+  arbiter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: arbiter
+    ports:
+      - "8001:8001"
+    environment:
+      - SERVICE_NAME=arbiter
+      - SERVICE_PORT=8001
+    networks:
+      - mobius
+
+  # Λ‑TimeWrap - Temporal compression engine
+  timewrap:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: timewrap
+    ports:
+      - "8002:8002"
+    environment:
+      - SERVICE_NAME=timewrap
+      - SERVICE_PORT=8002
+    networks:
+      - mobius
+
+  # Λ‑Balance - Homeostasis engine
+  balance:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: balance
+    ports:
+      - "8003:8003"
+    environment:
+      - SERVICE_NAME=balance
+      - SERVICE_PORT=8003
+    networks:
+      - mobius
+
+  # Λ‑Optimize - Adaptive metabolism
+  optimize:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: optimize
+    ports:
+      - "8004:8004"
+    environment:
+      - SERVICE_NAME=optimize
+      - SERVICE_PORT=8004
+    networks:
+      - mobius
+
+  # Λ‑Regen - Regeneration engine (Flux Fractal)
+  regen:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: regen
+    ports:
+      - "8005:8005"
+    environment:
+      - SERVICE_NAME=regen
+      - SERVICE_PORT=8005
+    networks:
+      - mobius
+
+  # Λ‑Entropy - Controlled stress engine
+  entropy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: entropy
+    ports:
+      - "8006:8006"
+    environment:
+      - SERVICE_NAME=entropy
+      - SERVICE_PORT=8006
+    networks:
+      - mobius
+
+  # Λ‑Memory - Unified persistent memory
+  memory:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: memory
+    ports:
+      - "8007:8007"
+    environment:
+      - SERVICE_NAME=memory
+      - SERVICE_PORT=8007
+    networks:
+      - mobius
+
+  # Λ‑Safety - Security and governance
+  safety:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: safety
+    ports:
+      - "8008:8008"
+    environment:
+      - SERVICE_NAME=safety
+      - SERVICE_PORT=8008
+    networks:
+      - mobius
+
+  # Λ‑Econ - Resource & value engine
+  econ:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: econ
+    ports:
+      - "8009:8009"
+    environment:
+      - SERVICE_NAME=econ
+      - SERVICE_PORT=8009
+    networks:
+      - mobius
+
+  # Λ‑Secure I/O - Security gateway
+  secureio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: secureio
+    ports:
+      - "8010:8010"
+    environment:
+      - SERVICE_NAME=secureio
+      - SERVICE_PORT=8010
+    networks:
+      - mobius
+
+  # Λ‑Planner - Task & trajectory planning
+  planner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: planner
+    ports:
+      - "8011:8011"
+    environment:
+      - SERVICE_NAME=planner
+      - SERVICE_PORT=8011
+    networks:
+      - mobius
+
+  # Λ‑Explain - Observability & causality
+  explain:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: explain
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVICE_NAME=explain
+      - SERVICE_PORT=8080
+    networks:
+      - mobius
+
+  # Prometheus - Time series database
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - mobius
+
+  # Grafana - Dashboards
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./dashboards/grafana:/etc/grafana/provisioning/dashboards
+    depends_on:
+      - prometheus
+    networks:
+      - mobius
+
+networks:
+  mobius:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+  grafana-data:

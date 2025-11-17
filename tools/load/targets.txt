@@ -1,0 +1,4 @@
+POST http://localhost:8001/decide_mode
+Content-Type: application/json
+
+{"theta":0.82, "low":0.55, "high":0.8}

@@ -1,0 +1,28 @@
+experiments:
+  - name: timewrap_latency_injection
+    target: timewrap
+    action: add_latency
+    value_ms: 50
+    duration_s: 300
+    success_criteria:
+      - p99 <= baseline_p99 + 30
+      - no_safety_violations
+      - system_recovered: true
+  
+  - name: arbiter_cpu_throttle
+    target: arbiter
+    action: cpu_limit
+    value_percent: 50
+    duration_s: 180
+    success_criteria:
+      - service_available: true
+      - degraded_performance_acceptable: true
+  
+  - name: network_partition
+    target: all_services
+    action: network_delay
+    value_ms: 100
+    duration_s: 120
+    success_criteria:
+      - cluster_quorum_maintained: true
+      - no_data_loss: true
