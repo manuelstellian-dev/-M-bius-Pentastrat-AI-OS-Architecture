@@ -1,0 +1,35 @@
+profiles:
+  baseline:
+    description: "Baseline load for system validation"
+    rps: 200
+    duration_s: 300
+    p95_target_ms: 80
+    p99_target_ms: 120
+    
+  burst:
+    description: "Burst load to test scalability"
+    rps: 800
+    duration_s: 120
+    p95_target_ms: 120
+    p99_target_ms: 200
+    
+  lowlat:
+    description: "Low latency requirements profile"
+    rps: 150
+    duration_s: 600
+    p95_target_ms: 30
+    p99_target_ms: 50
+    
+  sustained:
+    description: "Sustained load for endurance testing"
+    rps: 400
+    duration_s: 3600
+    p95_target_ms: 100
+    p99_target_ms: 150
+    
+  stress:
+    description: "Stress test to find breaking points"
+    rps: 1500
+    duration_s: 60
+    p95_target_ms: 300
+    p99_target_ms: 500
