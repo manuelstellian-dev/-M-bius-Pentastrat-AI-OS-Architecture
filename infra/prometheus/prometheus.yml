@@ -1,0 +1,20 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'mobius-services'
+    static_configs:
+      - targets:
+        - 'arbiter:8001'
+        - 'timewrap:8002'
+        - 'balance:8003'
+        - 'optimize:8004'
+        - 'regen:8005'
+        - 'entropy:8006'
+        - 'memory:8007'
+        - 'safety:8008'
+        - 'econ:8009'
+        - 'secureio:8010'
+        - 'planner:8011'
+        - 'explain:8080'
